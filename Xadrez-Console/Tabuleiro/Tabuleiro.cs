@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using tabuleiro;
 
 namespace tabuleiro
 {
@@ -17,6 +18,11 @@ namespace tabuleiro
             Linhas = linhas;
             Colunas = colunas;
             Pecas = new Peca[linhas, colunas];
+        }
+
+        public Peca Peca(int linhas, int colunas)
+        {
+            return Pecas[linhas, colunas];
         }
     }
 }
