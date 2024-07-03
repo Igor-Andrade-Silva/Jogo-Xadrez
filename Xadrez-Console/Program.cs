@@ -14,22 +14,36 @@ namespace xadrez_console
 
                 while (!Partida.Terminada)
                 {
-                    Console.Clear();
-                    Tela.ImprimirTabuleiro(Partida.Tab);
-                    Console.Write("Origem: ");
-                    Posicao Origem = Tela.LerPosicaoXadrez().ToPosicao();
+                    try
+                    {
+                        Console.Clear();
+                        Tela.ImprimirTabuleiro(Partida.Tab);
+                        Console.WriteLine();
+                        Console.WriteLine("Turno: " + Partida.Turno);
+                        Console.WriteLine("Aguardando jogada: " + Partida.JogadorAtual);
 
-                    bool[,] PosicoesPossiveis = Partida.Tab.Peca(Origem).MovimentosPossiveis();
+                        Console.WriteLine();
+                        Console.Write("Origem: ");
+                        Posicao Origem = Tela.LerPosicaoXadrez().ToPosicao();
+                        Partida.ValidarPosicaoDeOrigem(Origem);
 
-                    Console.Clear();
-                    Tela.ImprimirTabuleiro(Partida.Tab, PosicoesPossiveis);
+                        bool[,] PosicoesPossiveis = Partida.Tab.Peca(Origem).MovimentosPossiveis();
 
-                    Console.WriteLine();
+                        Console.Clear();
+                        Tela.ImprimirTabuleiro(Partida.Tab, PosicoesPossiveis);
 
-                    Console.Write("Destino ");
-                    Posicao Destino = Tela.LerPosicaoXadrez().ToPosicao();
+                        Console.WriteLine();
+                        Console.Write("Destino ");
+                        Posicao Destino = Tela.LerPosicaoXadrez().ToPosicao();
+                        Partida.ValidarPosicaoDeDestino(Origem, Destino);
 
-                    Partida.ExecutaMovimento(Origem, Destino);
+                        Partida.RealizaJogada(Origem, Destino);
+                    }
+                    catch(TabuleiroException e)
+                    {
+                        Console.WriteLine(e.Message);
+                        Console.ReadLine();
+                    }
                 }
                 
                
